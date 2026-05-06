@@ -1,5 +1,12 @@
 package stringer
 
+/*
+---------------------------------------------------------
+Root cmd: stringer
+
+Version: Adds version to the cmd
+---------------------------------------------------------
+*/
 import (
 	"fmt"
 	"os"
@@ -7,9 +14,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var version = "0.0.1"
+
 var rootCmd = &cobra.Command{
-    Use:  "stringer",
-    Short: "stringer - a simple CLI to transform and inspect strings",
+    Use:   "stringer",
+    Version: version,
+    Short:  "stringer - a simple CLI to transform and inspect strings",
     Long: `stringer is a super fancy CLI (kidding)
    
 One can use stringer to modify or inspect strings straight from the terminal`,

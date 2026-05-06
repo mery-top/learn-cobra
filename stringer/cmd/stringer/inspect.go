@@ -1,5 +1,18 @@
 package stringer
 
+/*
+---------------------------------------------------------
+Sub cmd: stringer inspect arg[0]
+
+Adding flags to commands with Cobra
+-> Local flags are assigned to a single command
+-> Persistent flags are assigned to a command and all its sub-commands
+
+---------------------------------------------------------
+*/
+
+
+
 import (
     "fmt"
 
@@ -7,6 +20,7 @@ import (
     "github.com/spf13/cobra"
 )
 
+var onlyDigits bool
 var inspectCmd = &cobra.Command{
     Use:   "inspect",
     Aliases: []string{"insp"},
@@ -15,16 +29,17 @@ var inspectCmd = &cobra.Command{
     Run: func(cmd *cobra.Command, args []string) {
 
         i := args[0]
-        res, kind := stringer.Inspect(i, false)
+        res, kind := stringer.Inspect(i, onlyDigits)
 
         pluralS := "s"
         if res == 1 {
             pluralS = ""
         }
-        fmt.Printf("'%s' has a %d %s%s.\n", i, res, kind, pluralS)
+        fmt.Printf("'%s' has %d %s%s.\n", i, res, kind, pluralS)
     },
 }
 
 func init() {
+    inspectCmd.Flags().BoolVarP(&onlyDigits, "digits", "d", false, "Count only digits")
     rootCmd.AddCommand(inspectCmd)
 }
